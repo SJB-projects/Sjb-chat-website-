@@ -52,6 +52,9 @@
         #followBtn {
             margin-top: 10px;
         }
+        .admin {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -59,7 +62,7 @@
 <div class="container">
     <h1>Welcome to SJB Chat</h1>
 
-    <div id="signup">
+    <div id="signup" style="display:block;">
         <h2>Create Account</h2>
         <form id="signupForm">
             <input type="text" id="signupUsername" placeholder="Username" required>
@@ -114,6 +117,8 @@
             messages: []
         };
         alert("Account created successfully!");
+        
+        // After account creation, show login page
         document.getElementById('signup').style.display = 'none';
         document.getElementById('login').style.display = 'block';
     });
@@ -132,6 +137,16 @@
         if (usersDB[username].password !== password) {
             alert("Incorrect password.");
             return;
+        }
+
+        // If the username contains .admin, prompt for admin password
+        if (username.includes('.admin')) {
+            const adminPassword = prompt("Admin password required: ");
+            if (adminPassword !== '2280') {
+                alert("Incorrect admin password.");
+                return;
+            }
+            alert("Admin access granted!");
         }
 
         currentUser = username;
